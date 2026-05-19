@@ -9,15 +9,15 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--purple:#c084fc;--dark:#1a1a1a;--light:#faf9f7}
+:root{--purple:#c084fc;--dark:#1a1a1a;--light:#faf9f7;--call-green:#1a5c2a;--wa-green:#25D366}
 body{font-family:'Inter',sans-serif;background:var(--light);color:var(--dark)}
 h1,h2,h3,h4{font-family:'Cormorant Garamond',serif}
 #buy-banner{position:fixed;top:0;left:0;width:100%;background:#000;color:#fff;z-index:9999;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 #buy-banner p{font-size:14px}
-#buy-banner a{background:#ff4d00;color:#fff;text-decoration:none;padding:8px 18px;border-radius:4px;font-size:13px;font-weight:500;white-space:nowrap;flex-shrink:0}
+#buy-banner a.stripe{background:#ff4d00;color:#fff;text-decoration:none;padding:8px 18px;border-radius:4px;font-size:13px;font-weight:500;white-space:nowrap;flex-shrink:0}
 @media(max-width:600px){#buy-banner .dt{display:none}}
 @media(min-width:601px){#buy-banner .mob{display:none}}
-.hero{height:100vh;background:url('https://maps.googleapis.com/maps/api/place/photo?maxwidth=1920&photoreference=Ab43m-tOugp0j261E0-CoZxqkraha8NYgM03mhud9yxagjNN6n2MQt9Zw54vKNw-1_OiMSAc3Y5yT9TD3IzX1Szt3ApWD1Uo_SwE7avT2qkk8O3jFMN86kCnsEhew1HwO-TxB_RVDSZ7BNAGKx6ZbxyspqF4AhrQA815eg1DN-vpidHjEr5N6yEzYwws4CrD6TMEuz1fDhKHMiKQmim7zV8DYvywJ6Yeoxmi7bQLSO78uOh275AExzu1f7DnH8LzkkV2ylKAItXIrCOgD-A1MpaEDB5Yd6dccv3hCmz8EVqG8f6kMm5BFQvw7pzYzJfG2zDugAnbAkYAEa85EfB4ZprOJZa1C2egAZE1crwRGbJ4Xana0JDBaeg4u4Q5w7kLF8tKRQoK4WG5gVxPiu-a1yJQ0kXjsMrnLqePoSHF648kNB2C6A&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM') center/cover no-repeat;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;margin-top:44px}
+.hero{height:100vh;background:url('https://maps.googleapis.com/maps/api/place/photo?maxwidth=1920&photoreference=Ab43m-vQIJ-7h1oklV1FZqJEu2huiQ3_QtzyjmZLZXtVZSHZ6UjghZUHRLBmmiM5pD_zryjmGv3AKOwPvvNhKN7Vz9No_QrztCQO9Zag8o7bhrQXvw_YA15Zbwzs4QIDC8sJUz7gz1gvAX2IfmQCBLPfO7xIYSclG6mROk41QComH5g-wnUXzrUnHc_Jt6jyxftW2slHm_LkNpuXpTs5g280BdNadRQMl0kBznE4OBncuK6tvtwEW_Y61hhPDGl9jPT0BKggvHo9d2CQZxEFTK4_jXVaXL6te-cC16qML3B8Xu1kANOg6x3XkXWgWJMHq-HQ0eq1ZFGgo3cH3rJyIUvrBIl54lrE441s7qcqHs9Tl_2QGIomv7qGaeL9ogZKvIvsIM4c4j5E8Gvyl0imf_RRUyP-P5lM6JTI3MSx5lgbT0_OFg&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM') center/cover no-repeat;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;margin-top:44px}
 .hero::before{content:'';position:absolute;inset:0;background:rgba(0,0,0,0.48)}
 .hero-c{position:relative;z-index:1;color:#fff;padding:0 20px}
 .hero-c h1{font-size:clamp(2.2rem,6vw,5rem);font-weight:300;letter-spacing:.04em}
@@ -49,17 +49,14 @@ h1,h2,h3,h4{font-family:'Cormorant Garamond',serif}
 .gallery{display:grid;grid-template-columns:repeat(5,1fr);gap:3px}
 @media(max-width:600px){.gallery{grid-template-columns:repeat(2,1fr)}}
 .gallery img{width:100%;height:200px;object-fit:cover}
-/* RECENSIONI GOOGLE STYLE */
 .recensioni{background:var(--light);padding:72px 5%}
 .rec-inner{max-width:1100px;margin:0 auto}
 .rec-top{display:flex;align-items:flex-start;gap:40px;margin-bottom:40px;flex-wrap:wrap}
-.rec-score{min-width:160px}
 .rec-score .big-num{font-family:'Cormorant Garamond',serif;font-size:5rem;font-weight:300;line-height:1;color:var(--dark)}
 .rec-score .big-stars{font-size:1.4rem;color:#f59e0b;margin:4px 0}
 .rec-score .rec-count{font-size:.85rem;color:#666}
-.rec-score .rec-divider{width:1px;background:#ddd;height:80px;margin:0 20px;align-self:center}
+.rec-divider{width:1px;background:#ddd;height:80px;margin:0 20px;align-self:center}
 .rec-title h2{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:300;line-height:1.2}
-.rec-carousel{position:relative}
 .rec-track{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
 @media(max-width:700px){.rec-track{grid-template-columns:1fr}}
 .rev-card{background:#fff;border:1px solid #e8e8e8;border-radius:8px;padding:24px;position:relative;box-shadow:0 1px 6px rgba(0,0,0,.06)}
@@ -90,7 +87,12 @@ details p{color:#555;line-height:1.7;margin-top:12px;font-size:.92rem}
 .contatti a{color:var(--purple);text-decoration:none}
 footer{background:#111;color:#666;text-align:center;padding:22px;font-size:.78rem}
 footer a{color:#888;cursor:pointer}
-.wa{position:fixed;bottom:22px;right:22px;background:#25D366;color:#fff;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:24px;box-shadow:0 4px 16px rgba(37,211,102,.4);z-index:8888}
+/* STICKY BUTTONS */
+.sticky-btn{position:fixed;bottom:22px;right:22px;width:auto;min-width:54px;height:54px;border-radius:28px;display:flex;align-items:center;gap:8px;padding:0 18px 0 14px;text-decoration:none;font-size:14px;font-weight:600;box-shadow:0 4px 16px rgba(0,0,0,.25);z-index:8888;color:#fff;transition:transform .2s}
+.sticky-btn:hover{transform:scale(1.05)}
+.sticky-btn span{white-space:nowrap}
+.sticky-call{background:var(--call-green)}
+.sticky-wa{background:var(--wa-green)}
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:99999;align-items:center;justify-content:center}
 .modal.open{display:flex}
 .modal-box{background:#fff;padding:36px;max-width:580px;width:90%;max-height:80vh;overflow-y:auto;border-radius:3px}
@@ -103,12 +105,12 @@ footer a{color:#888;cursor:pointer}
 <div id="buy-banner">
   <p class="dt">Ti piace questo sito? Il tuo potrebbe essere identico — online in 5 giorni per €99</p>
   <p class="mob">Vuoi un sito così? €99</p>
-  <a href="https://buy.stripe.com/8x25kC7mo39M0bN1Mv1B601" target="_blank">Inizia ora →</a>
+  <a href="https://buy.stripe.com/8x25kC7mo39M0bN1Mv1B601" target="_blank" class="stripe">Inizia ora →</a>
 </div>
 <section class="hero">
   <div class="hero-c">
     <h1>Parrucchiera Lisa</h1>
-    <p>Via Vittorio Alfieri,  16 · Bologna</p>
+    <p>Via Vittorio Alfieri, 16 · Bologna</p>
     <div class="stars">★★★★½ 4.7 · 65 recensioni Google</div>
     <a href="https://wa.me/393356923957" class="cta" target="_blank">Prenota su WhatsApp</a>
   </div>
@@ -134,9 +136,9 @@ footer a{color:#888;cursor:pointer}
 <section class="about">
   <div class="about-in">
     <div class="about-imgs">
-      <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=Ab43m-tOugp0j261E0-CoZxqkraha8NYgM03mhud9yxagjNN6n2MQt9Zw54vKNw-1_OiMSAc3Y5yT9TD3IzX1Szt3ApWD1Uo_SwE7avT2qkk8O3jFMN86kCnsEhew1HwO-TxB_RVDSZ7BNAGKx6ZbxyspqF4AhrQA815eg1DN-vpidHjEr5N6yEzYwws4CrD6TMEuz1fDhKHMiKQmim7zV8DYvywJ6Yeoxmi7bQLSO78uOh275AExzu1f7DnH8LzkkV2ylKAItXIrCOgD-A1MpaEDB5Yd6dccv3hCmz8EVqG8f6kMm5BFQvw7pzYzJfG2zDugAnbAkYAEa85EfB4ZprOJZa1C2egAZE1crwRGbJ4Xana0JDBaeg4u4Q5w7kLF8tKRQoK4WG5gVxPiu-a1yJQ0kXjsMrnLqePoSHF648kNB2C6A&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM" alt="Salone" loading="lazy">
-      <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=Ab43m-uD-hDvDfNtyz8Qs4KIVBWPl1quPQZuqfusBktYS7fU9szebTyLL36uhOy6VNAtsZ7uT6mMquSoAizNSBaMwu1PzTr7B0aKpltRBkhn-uAOWbEj46I3Ea6zGvlHP5sGmlcMZZQiK1b2nf0fLtsVksohGXh-IIeWp8r7OhFZ3u9PbYBeWmXuIZbNVBL8YCD6R6DhHD9JbnQ_uCPlQAS_WY1sVog-Qwvb80270jZCLIEKTxAAdT6eWD7Hn12SiAFr8MShaL2aN6oqg8XkmE-pwwGOduo9sRwwRnANYonwh6op2W6Q5dFvpN9HmQyeQs-2LndIArDqqmgoXUFizAARfFCVkjWmfZ6L3BhLLO8p5JMlvNjTKohuDLLHZROFYo0BsNJRpZh9sF8ggqyKvyUBVTxptETRdOu3PcFiU4kKSFp1W7PW&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM" alt="Team" loading="lazy">
-      <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=Ab43m-uopnObuyngtx54alsei1KRQ5r22CPpn1xqYC4Ueo-x2lqfTD41xGCSiBTGhUPJgfxzS1sCHGBbAwywwBUcukQnFP0tcqVub1_EO5rwlhqR1qUfEwhwsZFZSXcmAJN56Jf1xuws6u-Fu9hZsTHn6MoNNPvayYI80_GFy8KAO5-ypVQ5JB_Rb8jD3mrviKieffl4MsaYWO_5illVDnx-jEGFL9ItRwLkVmbqQUEGEWSqAOUZWJUZsXZWdK70yudzX_QlNtuxZuaARoVb6Dw5mW-9B88BE1PafACu8VWE-Te5rGcOrBgOvIqBPxQiyAtRYjam2nQdhh-AJTAz922L2XgysnO3mG_O-mSddPoFLsc9vUUItirb6Ee5rcYqGEXArzhiaWp8fd0TteNX9lXNcOHgxLywb4evjsET9phvGNOH2gRJ&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM" alt="Lavoro" loading="lazy">
+      <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=Ab43m-vQIJ-7h1oklV1FZqJEu2huiQ3_QtzyjmZLZXtVZSHZ6UjghZUHRLBmmiM5pD_zryjmGv3AKOwPvvNhKN7Vz9No_QrztCQO9Zag8o7bhrQXvw_YA15Zbwzs4QIDC8sJUz7gz1gvAX2IfmQCBLPfO7xIYSclG6mROk41QComH5g-wnUXzrUnHc_Jt6jyxftW2slHm_LkNpuXpTs5g280BdNadRQMl0kBznE4OBncuK6tvtwEW_Y61hhPDGl9jPT0BKggvHo9d2CQZxEFTK4_jXVaXL6te-cC16qML3B8Xu1kANOg6x3XkXWgWJMHq-HQ0eq1ZFGgo3cH3rJyIUvrBIl54lrE441s7qcqHs9Tl_2QGIomv7qGaeL9ogZKvIvsIM4c4j5E8Gvyl0imf_RRUyP-P5lM6JTI3MSx5lgbT0_OFg&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM" alt="Salone" loading="lazy">
+      <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=Ab43m-vMKqq47JfEJdiebrQEclgXjp6_w-06XJ_NomWzRy60F0lbybSH29DdRP9UzPR3IUpRH5Np3HsrmGhhDmNYAm376iSECfPQz5tMVENTIU8cLtheycHlTBw56CV7UTbU5wJkESQwNx8j50WClDEguY1eU9Udb630-lRl05n9bmIIMMvRan0G5cfMyK0pSU_EUymMgP3cbkTx_mBd5lXsw5XvZZ3GVXM-jxelAWWwBn0mRh8IbW_CBZn1GAXWpPC_167_hTkXqKsBNgY2stQNqo0_XK0hKVVxwPkdrM7z4HrqMI1vfIzePRN4m41MKCA-hA9BJ_Cjfie3x8DEvOibkEuWeSynAsESgjZL3C80O4fM79jUgErd0K0AYAk7Px0P6oD1TNUrjbRabbZL_X7OkUIWfShbUr5nQU_SoK5O2WFk-X_s&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM" alt="Team" loading="lazy">
+      <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=Ab43m-sFDhBNbDjrHLIcPzNOdWk8F9dRW4m3Dy9Lw2qcifdLMK_jnzNyehnrBBkcFsFHvskOk9bqbSoy7AP_Pob22RZzsCaFwF32Oc12BFs814BNJ0i8N3PYG1YZJcVweHu-1cjAi__e1pG9-hgvywzavsIQ0o7OCskjvub5sJCr1xCThYCx2bwp5scrI2jmUT0GeXIZCV8pjLCGzahUW1uNB8CkgQmXxUv0o0Re_YcibKByM8ertX1DdqEzoTklBo4i5VJ9GDiTipriQ6b6Y-iMxojxNyGfTdtnagLmG4LhuF1G0druCPfNPy85Y7Q0u8UHgTmnXDiNGScmHPnZBG_3o2h6RH2zkEqrQewx3TbA4z2em4gD45ujiNUGojARFDeOMwZ39Qezj2wdxEq9XNvmVtHFzO9pMXiKLQC-2k4AW41xwVTB&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM" alt="Lavoro" loading="lazy">
     </div>
     <div class="about-t">
       <h2>Chi Siamo</h2>
@@ -146,9 +148,7 @@ footer a{color:#888;cursor:pointer}
     </div>
   </div>
 </section>
-<div class="gallery"><img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=Ab43m-uD-hDvDfNtyz8Qs4KIVBWPl1quPQZuqfusBktYS7fU9szebTyLL36uhOy6VNAtsZ7uT6mMquSoAizNSBaMwu1PzTr7B0aKpltRBkhn-uAOWbEj46I3Ea6zGvlHP5sGmlcMZZQiK1b2nf0fLtsVksohGXh-IIeWp8r7OhFZ3u9PbYBeWmXuIZbNVBL8YCD6R6DhHD9JbnQ_uCPlQAS_WY1sVog-Qwvb80270jZCLIEKTxAAdT6eWD7Hn12SiAFr8MShaL2aN6oqg8XkmE-pwwGOduo9sRwwRnANYonwh6op2W6Q5dFvpN9HmQyeQs-2LndIArDqqmgoXUFizAARfFCVkjWmfZ6L3BhLLO8p5JMlvNjTKohuDLLHZROFYo0BsNJRpZh9sF8ggqyKvyUBVTxptETRdOu3PcFiU4kKSFp1W7PW&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM" alt="" loading="lazy"><img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=Ab43m-uopnObuyngtx54alsei1KRQ5r22CPpn1xqYC4Ueo-x2lqfTD41xGCSiBTGhUPJgfxzS1sCHGBbAwywwBUcukQnFP0tcqVub1_EO5rwlhqR1qUfEwhwsZFZSXcmAJN56Jf1xuws6u-Fu9hZsTHn6MoNNPvayYI80_GFy8KAO5-ypVQ5JB_Rb8jD3mrviKieffl4MsaYWO_5illVDnx-jEGFL9ItRwLkVmbqQUEGEWSqAOUZWJUZsXZWdK70yudzX_QlNtuxZuaARoVb6Dw5mW-9B88BE1PafACu8VWE-Te5rGcOrBgOvIqBPxQiyAtRYjam2nQdhh-AJTAz922L2XgysnO3mG_O-mSddPoFLsc9vUUItirb6Ee5rcYqGEXArzhiaWp8fd0TteNX9lXNcOHgxLywb4evjsET9phvGNOH2gRJ&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM" alt="" loading="lazy"><img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=Ab43m-t107mkJu__iDAEIvxT8kdS4C9H3j1MrAxmv0hHRMKd116McA4a2b25mKj6LygOdzOzAyTIs0WAf9ZGPQA8MBcSBZp2HQqEYTv3ee3HZpGEIDpXcraiy7m6I9i1fq4ye7abvrKwbaAzduc-S-d0f64heR9KGNsAt3-qwyWnHEzCEpDeOQJeRMiae1TKuNlxtaEv2Jdm49N60PqFIogH3m5C9ALIqMq1soIRFwdzrbZUw9lD3B3vvIKLW80pjWAKNucSEUoHpwc5A1ucv-d6mNpNI7JUUKxDOqoXmyAFkCT5DgqVCo_AkoNdDFKVni0nLsfPIcNd9nmpxApHiswKY1mI4JLllTug3yPwJocnjaEj8NTiH5Wsz1GsTu3FmLiUVifQSTGTJNQ55Ig-Ua1tjGCwXBXwY8uTzOMoRfyxRSYI8CPF&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM" alt="" loading="lazy"><img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=Ab43m-sZJ2OOZ0gLcGYKJ7sEJt6UE1wUtJomrFZRlrXZv6sa6Lr5TtMr9cOxHAn3IhfuTVx6jmVTRb6QZVEJWdbn8FOg2uh1FUO7uAzQiLtjQb_KwRdi3elSPKZfio7zeFEm_xhsCNEy34g-TcVP-vznbhWwTc6Wv8yv3uceir3DFmSO7WZ42N2sjPPbdp8_YkwDq1F_grJMY2Y1APsle2l9dwueASJc3wKoG6uxDb_Ue9xlW0PPf9g3Yl_T39jU7jSJBIYLM1ehVVZChafXmMgw0EY4sab1UW2PlGRFKldRwpsJ3McdgrTBicudQQv9sn5CkBcTZdRnvPYdJCgGtMIw8z7l14Rf-lVOu8lpg2W5h6GaWjubAm3BXl0iDeaAl0cnpuGYY7h1xkyotK5dR6uWwxGzaFeOTcJ8-4g-JzrAZ4n341Yy&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM" alt="" loading="lazy"><img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=Ab43m-sIJqe9xRFdAHG9SJXJyWEWHYKRnuLZK_gWUnolz5T95zaYnZIC1JCjJcYW41Rqd66LHtRzFCyL3K-Ixq5to09WBbPCANC5McGhMg_eo0mx3Wxwv1Xq8LHGKR2rD59RDz3LUmzQqHUbJMYOMn4diYGcPIH00c2ONfLIw7eoFid73ztwiz-0Yw8qPa9j_ITXiENRngYi6GIehxvjS3AOnR74aNLV67ctGybL6kfcHK0H18NRWOb20hUWuK4VuCKAVd1MrZe-UvE-qfEAUNUviCbS95i3Op3-U2KqxxwByJSeSN8fgBkxeg6Ju77fH_c8pCYvF5sNBRb9gEyiOavh07fU1f5pCfJJ51Qm7JWnouXPPTQkEWr0bR2E0qsUC4IIE3MbLFwj-AzxXdPoLa48xGpTUDZX8V8B4xaWfnZv8Q8&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM" alt="" loading="lazy"></div>
-
-<!-- RECENSIONI GOOGLE STYLE -->
+<div class="gallery"><img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=Ab43m-vMKqq47JfEJdiebrQEclgXjp6_w-06XJ_NomWzRy60F0lbybSH29DdRP9UzPR3IUpRH5Np3HsrmGhhDmNYAm376iSECfPQz5tMVENTIU8cLtheycHlTBw56CV7UTbU5wJkESQwNx8j50WClDEguY1eU9Udb630-lRl05n9bmIIMMvRan0G5cfMyK0pSU_EUymMgP3cbkTx_mBd5lXsw5XvZZ3GVXM-jxelAWWwBn0mRh8IbW_CBZn1GAXWpPC_167_hTkXqKsBNgY2stQNqo0_XK0hKVVxwPkdrM7z4HrqMI1vfIzePRN4m41MKCA-hA9BJ_Cjfie3x8DEvOibkEuWeSynAsESgjZL3C80O4fM79jUgErd0K0AYAk7Px0P6oD1TNUrjbRabbZL_X7OkUIWfShbUr5nQU_SoK5O2WFk-X_s&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM" alt="" loading="lazy"><img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=Ab43m-sFDhBNbDjrHLIcPzNOdWk8F9dRW4m3Dy9Lw2qcifdLMK_jnzNyehnrBBkcFsFHvskOk9bqbSoy7AP_Pob22RZzsCaFwF32Oc12BFs814BNJ0i8N3PYG1YZJcVweHu-1cjAi__e1pG9-hgvywzavsIQ0o7OCskjvub5sJCr1xCThYCx2bwp5scrI2jmUT0GeXIZCV8pjLCGzahUW1uNB8CkgQmXxUv0o0Re_YcibKByM8ertX1DdqEzoTklBo4i5VJ9GDiTipriQ6b6Y-iMxojxNyGfTdtnagLmG4LhuF1G0druCPfNPy85Y7Q0u8UHgTmnXDiNGScmHPnZBG_3o2h6RH2zkEqrQewx3TbA4z2em4gD45ujiNUGojARFDeOMwZ39Qezj2wdxEq9XNvmVtHFzO9pMXiKLQC-2k4AW41xwVTB&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM" alt="" loading="lazy"><img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=Ab43m-upWOZuvwt7kgS2LpSORHVujfDI1GbVtz5auJEW3n2Gy2Myw5Gi_TVeFhjbTBC8ofd9CIq0IhIavrNw7oHXswY7RBzmCkInWzsjELnD5u31BaEDNg9GwrJBjbgtY57gQMGYNy8Ym-RGEOygdt1A2dp3D9G169Qp3ORR77HvLL1m6JTniywSAC-xalhVq3r-8fwF8uLQa-CBA0Rc8WSaRNGwraEfAU4eFC7zRpOBmIDn4oDkYTIlm3Sv9tdhJfE8S3xx1lJ2HrawgAQaVCfWATcuGq8tH_pYuUjs4umMiNBLGnoOhcY1RrO9FP6dYn3Qasg7yEg_bI2mG7EeWfCda2sgdUn2B-_63IU3NWd86FuFj0wnN6CENAnPj7ljAKdRqlwTD0QsN_mSoRg42GpVG4lJTtsIecij4_ibLZBovOvlgt92&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM" alt="" loading="lazy"><img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=Ab43m-uJkftw6fuAdU3kUQmYbrafcdqT6j1ISok5wvooAiQSTb5fn9QISbAXzJV1-OwuP5KKAopIdZQWgBb4laMR2tqRX7geojKeZfCny-R5KhrUUerin45rFbl4HFYHoyl9yO4UVtIwbM1o-hNEij7XOIGt8AWQ7NRKqTSMyGVOHijqDy11r3TnuoViKmtguTkhguWd0ShQ3J-ncEPSECo1HbHXyYYe151NZ3xIWUrTj3wwnBERqAiahv3-jfbkqsj7otFt4-IQXt5dbC_LE9QhDIGk1nkpRd4_Kg0u7Hum7zYTWMhUp7OIzJHurDYLWUar9W4ZuQ6j2EVgWI0VlCVuvxfcBq4S-rdJw8FQ9olER8uFvfUHpnZicxhkpL9qynUi-xOh-9N4oc9Ts_Avz4YSsTHMCGgKQcLI8SJgMtitFwHO4nUf&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM" alt="" loading="lazy"><img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=800&photoreference=Ab43m-uLbdUkyhut7FqjJt77QkH4ftU6m-616csdd_hVQ3Dd8s7IJQAsUvaY02JrJqPPo7g8Il7-Q4fsVT-uxwSauVo7lqCCD2UeoQZU7l4Srfm-u0dRUATj8RFOPBvWBVHMN8wFTPzMmJL-N_S3SmU7g0ezqXXO7J0LAiA0_L1FZWIFCCMU_Ng8bKMvtIWKpBgd5PpNPQbamJZhzzFCAJn1LHkRmUapYVe3tFbXU-OeM-AGSCLEIs0hz4gi1WT9F59VMm01DUsmoovofiV1OJBxIgvwYrZKx8L7bCiRahUwKXaBfaG6sZSqTpV53bXMK_q8EQghNKykgVyGGDNLrA_Fd4rCOLvX8z960s5gj_dqlwqJSKK0FxjKRBCL0y-JYs6Z5_nWQWUvbMDz5bK4G4BD8JGoD331jM8d6p3fo5dw9WQ&key=AIzaSyCYXbAb5oATfgJRzDY7v7_wNhQ6F7PltAM" alt="" loading="lazy"></div>
 <section class="recensioni">
   <div class="rec-inner">
     <div class="rec-top">
@@ -157,48 +157,35 @@ footer a{color:#888;cursor:pointer}
         <div class="big-stars">★★★★☆</div>
         <div class="rec-count">65 recensioni Google</div>
       </div>
-      <div class="rec-score rec-divider"></div>
+      <div class="rec-divider"></div>
       <div class="rec-title"><h2>Cosa dicono<br>i nostri clienti</h2></div>
     </div>
-    <div class="rec-carousel">
-      <div class="rec-track" id="rec-track">
-        <div class="rev-card">
-  <div class="rev-header">
-    <img src="https://lh3.googleusercontent.com/a/ACg8ocIDnc4egEbK7FaTAB9pUnP24zDW3r5VB9L5f7mEJGyMY5Lhsw=s128-c0x00000000-cc-rp-mo-ba3" alt="FS" style="width:44px;height:44px;border-radius:50%;object-fit:cover">
-    <div class="rev-meta"><div class="rev-name">Francesca Stradi</div><div class="rev-when">8 mesi fa</div></div>
-  </div>
+    <div class="rec-track" id="rec-track"><div class="rev-card">
+  <div class="rev-header"><img src="https://lh3.googleusercontent.com/a/ACg8ocIDnc4egEbK7FaTAB9pUnP24zDW3r5VB9L5f7mEJGyMY5Lhsw=s128-c0x00000000-cc-rp-mo-ba3" alt="FS" style="width:44px;height:44px;border-radius:50%;object-fit:cover;flex-shrink:0"><div class="rev-meta"><div class="rev-name">Francesca Stradi</div><div class="rev-when">8 mesi fa</div></div></div>
   <div class="rev-stars">★★★★★</div>
   <p class="rev-text">"Contro ogni aspettativa posso dire che questo salone é veramente valido ! Consigliatomi da un’amica e da sua zia che frequenta questo salone da 10 anni, ho deciso di provare, ho decolorato i miei capelli che sono molto fini e delicati e sono uscita con un bellissimo risultato e senza i capelli bruci"</p>
   <div class="rev-g"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg></div>
-</div><div class="rev-card">
-  <div class="rev-header">
-    <img src="https://lh3.googleusercontent.com/a-/ALV-UjVATyjUoEbtmc6U_NNbNKZxFat1IwzOt78CErCLFFcdCrrJDIlgeA=s128-c0x00000000-cc-rp-mo-ba2" alt="PB" style="width:44px;height:44px;border-radius:50%;object-fit:cover">
-    <div class="rev-meta"><div class="rev-name">Patrizia Bolelli</div><div class="rev-when">2 anni fa</div></div>
-  </div>
+</div>
+<div class="rev-card">
+  <div class="rev-header"><img src="https://lh3.googleusercontent.com/a-/ALV-UjVATyjUoEbtmc6U_NNbNKZxFat1IwzOt78CErCLFFcdCrrJDIlgeA=s128-c0x00000000-cc-rp-mo-ba2" alt="PB" style="width:44px;height:44px;border-radius:50%;object-fit:cover;flex-shrink:0"><div class="rev-meta"><div class="rev-name">Patrizia Bolelli</div><div class="rev-when">2 anni fa</div></div></div>
   <div class="rev-stars">★★★★★</div>
   <p class="rev-text">"Ho provato tutti i migliori a Bologna ma non ho trovato alcuna differenza con Lisa che si dedica con competenza e passione per accontentatare le clienti . Gentile e preparata.  Consigliatissima."</p>
   <div class="rev-g"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg></div>
-</div><div class="rev-card">
-  <div class="rev-header">
-    <img src="https://lh3.googleusercontent.com/a-/ALV-UjWlTQd11KUoOhN8Va0KvoEufJ5JGqsnxCw1PUEWTzQCZpL2WklzDw=s128-c0x00000000-cc-rp-mo" alt="LA" style="width:44px;height:44px;border-radius:50%;object-fit:cover">
-    <div class="rev-meta"><div class="rev-name">Lucia Anecchino</div><div class="rev-when">2 anni fa</div></div>
-  </div>
+</div>
+<div class="rev-card">
+  <div class="rev-header"><img src="https://lh3.googleusercontent.com/a-/ALV-UjWlTQd11KUoOhN8Va0KvoEufJ5JGqsnxCw1PUEWTzQCZpL2WklzDw=s128-c0x00000000-cc-rp-mo" alt="LA" style="width:44px;height:44px;border-radius:50%;object-fit:cover;flex-shrink:0"><div class="rev-meta"><div class="rev-name">Lucia Anecchino</div><div class="rev-when">2 anni fa</div></div></div>
   <div class="rev-stars">★★★★★</div>
   <p class="rev-text">"Tra i tanti provati a Bologna Lisa la trovo sempre molto professionale gentile brava in tutto,ci vado da 15 anni"</p>
   <div class="rev-g"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg></div>
-</div><div class="rev-card">
-  <div class="rev-header">
-    <img src="https://lh3.googleusercontent.com/a-/ALV-UjVFkwdApnwBez0cX32a4WyWwWrG-IpfmdGa2FThWyjrAeAyaPgG=s128-c0x00000000-cc-rp-mo-ba3" alt="C-" style="width:44px;height:44px;border-radius:50%;object-fit:cover">
-    <div class="rev-meta"><div class="rev-name">CM -SD</div><div class="rev-when">3 anni fa</div></div>
-  </div>
+</div>
+<div class="rev-card">
+  <div class="rev-header"><img src="https://lh3.googleusercontent.com/a-/ALV-UjVFkwdApnwBez0cX32a4WyWwWrG-IpfmdGa2FThWyjrAeAyaPgG=s128-c0x00000000-cc-rp-mo-ba3" alt="C-" style="width:44px;height:44px;border-radius:50%;object-fit:cover;flex-shrink:0"><div class="rev-meta"><div class="rev-name">CM -SD</div><div class="rev-when">3 anni fa</div></div></div>
   <div class="rev-stars">★★★☆☆</div>
   <p class="rev-text">"Ambiente confortevole, non c'è mai da aspettare molto, tagli non eccezionali ma più che accettabili per un costo contenuto. Soprattutto femminile ma acconciano anche i maschi."</p>
   <div class="rev-g"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg></div>
-</div><div class="rev-card">
-  <div class="rev-header">
-    <img src="https://lh3.googleusercontent.com/a-/ALV-UjUqZYD3dxtKhqU4jfYqUOMk1rXWpBo2JMNMuc2127YGtoYusaA=s128-c0x00000000-cc-rp-mo-ba4" alt="ML" style="width:44px;height:44px;border-radius:50%;object-fit:cover">
-    <div class="rev-meta"><div class="rev-name">Marco Leoni</div><div class="rev-when">6 anni fa</div></div>
-  </div>
+</div>
+<div class="rev-card">
+  <div class="rev-header"><img src="https://lh3.googleusercontent.com/a-/ALV-UjUqZYD3dxtKhqU4jfYqUOMk1rXWpBo2JMNMuc2127YGtoYusaA=s128-c0x00000000-cc-rp-mo-ba4" alt="ML" style="width:44px;height:44px;border-radius:50%;object-fit:cover;flex-shrink:0"><div class="rev-meta"><div class="rev-name">Marco Leoni</div><div class="rev-when">6 anni fa</div></div></div>
   <div class="rev-stars">★★★★★</div>
   <p class="rev-text">"A tutti gli scettici ....
 Qui lavorano veramente veramente bene
@@ -208,22 +195,20 @@ Il tutto ad ottimi prezzi.
 Provato personalmente da me mia moglie e figli"</p>
   <div class="rev-g"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg></div>
 </div>
-      </div>
-      <div class="rec-nav">
-        <button onclick="slide(-1)" aria-label="Precedente">←</button>
-        <button onclick="slide(1)" aria-label="Successivo">→</button>
-      </div>
+</div>
+    <div class="rec-nav">
+      <button onclick="slide(-1)">←</button>
+      <button onclick="slide(1)">→</button>
     </div>
   </div>
 </section>
 <script>
-var allCards=document.querySelectorAll('.rev-card'),idx=0,perPage=window.innerWidth<700?1:2;
-function show(){allCards.forEach(function(c,i){c.style.display=(i>=idx&&i<idx+perPage)?'block':'none'})}
-function slide(d){idx=Math.max(0,Math.min(idx+d,allCards.length-perPage));show()}
+var cards=document.querySelectorAll('.rev-card'),idx=0,pp=window.innerWidth<700?1:2;
+function show(){cards.forEach(function(c,i){c.style.display=(i>=idx&&i<idx+pp)?'block':'none'})}
+function slide(d){idx=Math.max(0,Math.min(idx+d,cards.length-pp));show()}
 show();
-window.addEventListener('resize',function(){perPage=window.innerWidth<700?1:2;show()});
+window.addEventListener('resize',function(){pp=window.innerWidth<700?1:2;show()});
 </script>
-
 <section class="orari">
   <h2 class="sec-t">Orari di Apertura</h2>
   <table>
@@ -239,36 +224,38 @@ window.addEventListener('resize',function(){perPage=window.innerWidth<700?1:2;sh
 <section class="faq">
   <div class="faq-in">
     <h2 class="sec-t">Domande Frequenti</h2>
-    <details><summary>Devo prenotare in anticipo?</summary><p>Consigliamo sempre di prenotare per garantire la disponibilità. Accettiamo anche clienti senza appuntamento quando possibile.</p></details>
-    <details><summary>Quanto dura un trattamento colore?</summary><p>Un colore completo richiede in media 2-3 ore. Per meches o balayage, prevedere 3-4 ore.</p></details>
-    <details><summary>Usate prodotti senza ammoniaca?</summary><p>Sì, offriamo colorazioni tradizionali e alternative senza ammoniaca per capelli sensibili.</p></details>
-    <details><summary>Fate acconciature per matrimoni?</summary><p>Assolutamente sì! Servizio completo per sposa con prova acconciatura inclusa.</p></details>
-    <details><summary>Quali metodi di pagamento accettate?</summary><p>Contanti, carte di credito/debito e pagamenti digitali (Apple Pay, Google Pay).</p></details>
+    <details><summary>Devo prenotare in anticipo?</summary><p>Consigliamo sempre di prenotare. Accettiamo anche senza appuntamento quando possibile.</p></details>
+    <details><summary>Quanto dura un trattamento colore?</summary><p>Un colore completo richiede 2-3 ore. Per meches o balayage, 3-4 ore.</p></details>
+    <details><summary>Usate prodotti senza ammoniaca?</summary><p>Sì, offriamo colorazioni tradizionali e alternative senza ammoniaca.</p></details>
+    <details><summary>Fate acconciature per matrimoni?</summary><p>Sì! Servizio completo per sposa con prova inclusa.</p></details>
+    <details><summary>Quali metodi di pagamento accettate?</summary><p>Contanti, carte e pagamenti digitali (Apple Pay, Google Pay).</p></details>
   </div>
 </section>
 <div id="map"></div>
 <script>
 var map=L.map('map').setView([44.5184743,11.3537614],15);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
-L.marker([44.5184743,11.3537614]).addTo(map).bindPopup('<b>Parrucchiera Lisa</b><br>Via Vittorio Alfieri,  16').openPopup();
+L.marker([44.5184743,11.3537614]).addTo(map).bindPopup('<b>Parrucchiera Lisa</b><br>Via Vittorio Alfieri, 16').openPopup();
 </script>
 <section class="contatti">
   <h2>Contattaci</h2>
-  <p style="margin-top:14px">Via Vittorio Alfieri,  16, 40128 Bologna</p>
-  <p><a href="tel:+39 335 692 3957">+39 335 692 3957</a></p>
-  <p style="margin-top:18px"><a href="https://wa.me/393356923957" target="_blank" style="background:var(--purple);color:#fff;padding:11px 26px;border-radius:2px;text-decoration:none;display:inline-block">Scrivici su WhatsApp</a></p>
+  <p style="margin-top:14px">Via Vittorio Alfieri, 16, 40128 Bologna</p>
+  <p><a href="tel:+39 335 692 3957" style="color:var(--purple)">+39 335 692 3957</a></p>
 </section>
 <footer>
-  <p>© 2025 Parrucchiera Lisa · Via Vittorio Alfieri,  16, 40128 Bologna · <a onclick="document.getElementById('pm').classList.add('open')">Privacy Policy</a></p>
+  <p>© 2025 Parrucchiera Lisa · Via Vittorio Alfieri, 16, 40128 Bologna · <a onclick="document.getElementById('pm').classList.add('open')">Privacy Policy</a></p>
 </footer>
 <div id="pm" class="modal" onclick="if(event.target===this)this.classList.remove('open')">
   <div class="modal-box">
     <button class="modal-close" onclick="document.getElementById('pm').classList.remove('open')">Chiudi</button>
     <h3>Privacy Policy</h3>
     <p>Questo sito non raccoglie dati personali, non usa cookie di profilazione e non effettua tracking.</p>
-    <p>Titolare: Parrucchiera Lisa, Via Vittorio Alfieri,  16, 40128 Bologna. Contatto: <a href="tel:+39 335 692 3957">+39 335 692 3957</a>.</p>
+    <p>Titolare: Parrucchiera Lisa, Via Vittorio Alfieri, 16, 40128 Bologna. Contatto: +39 335 692 3957</p>
     <p>Ultimo aggiornamento: maggio 2025.</p>
   </div>
 </div>
-<a href="https://wa.me/393356923957" class="wa" target="_blank">&#x1F4AC;</a>
+<a href="https://wa.me/393356923957" class="sticky-btn sticky-wa" target="_blank" title="WhatsApp">
+  <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.117 1.528 5.849L.057 23.547a.5.5 0 0 0 .596.596l5.7-1.471A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.9a9.9 9.9 0 0 1-5.031-1.371l-.361-.214-3.732.963.99-3.636-.235-.374A9.861 9.861 0 0 1 2.1 12C2.1 6.534 6.534 2.1 12 2.1S21.9 6.534 21.9 12 17.466 21.9 12 21.9z"/></svg>
+  <span>WhatsApp</span>
+</a>
 </body></html>
